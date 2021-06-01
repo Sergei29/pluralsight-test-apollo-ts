@@ -1,4 +1,5 @@
 import { gql, ApolloServer, ServerInfo } from "apollo-server";
+const PORT = process.env.PORT || 4000;
 
 const typeDefs = gql`
   type Query {
@@ -14,6 +15,6 @@ const resolvers = {
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-server.listen({ port: 9000 }).then(({ url }: ServerInfo) => {
+server.listen({ port: PORT }).then(({ url }: ServerInfo) => {
   console.log(`Server running at ${url}`);
 });
