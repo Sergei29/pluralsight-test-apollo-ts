@@ -1,15 +1,36 @@
 import { gql, ApolloServer, ServerInfo } from "apollo-server";
+import { stories, extra } from "./resolvers/Query";
+import { editStoryName } from "./resolvers/Mutation";
+
 const PORT = process.env.PORT || 4000;
 
 const typeDefs = gql`
+  type Story {
+    id: ID!
+    name: String!
+    image: String!
+    description: String!
+    extra: String
+  }
+
   type Query {
-    greeting: String
+    stories: [Story!]!
+  }
+
+  type Mutation {
+    editStoryName(id: ID!, name: String!): Story
   }
 `;
 
 const resolvers = {
   Query: {
-    greeting: () => "Hello GraphQL World!",
+    stories,
+  },
+  Story: {
+    extra,
+  },
+  Mutation: {
+    editStoryName,
   },
 };
 
